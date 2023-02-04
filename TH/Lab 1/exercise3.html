@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      input,
+      select {
+        width: 100%;
+      }
+      input[type="radio"],
+      input[type="checkbox"],
+      input[type="submit"],
+      input[type="reset"] {
+        width: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <form
+      action="https://web-503073-wiolshzi6q-uc.a.run.app/lab01/register"
+      method="post"
+    >
+      <table>
+        <tr>
+          <td>
+            <label for="name">Your Name</label>
+          </td>
+          <td>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              required
+              placeholder="Full Name"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="email">Email Address</label>
+          </td>
+          <td>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              required
+              placeholder="Email"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="birthday">Birthday</label>
+          </td>
+          <td>
+            <input type="date" name="birthday" id="birthday" required />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="birthtime">Birthtime</label>
+          </td>
+          <td>
+            <input type="time" name="birthtime" id="birthtime" required />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>Gender</label>
+          </td>
+          <td>
+            <input type="radio" id="male" name="gender" value="Male" />
+            <label for="male">Male</label>
+            <input type="radio" name="gender" id="female" value="Female" />
+            <label for="female">Female</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="country">Country</label>
+          </td>
+          <td>
+            <select id="country" name="country">
+              <option value="">Select a country</option>
+              <option value="Bangladesh">Bangladesh</option>
+              <option value="India">India</option>
+              <option value="Pakistan">Pakistan</option>
+              <option value="Srilanka">Srilanka</option>
+              <option value="Nepal">Nepal</option>
+              <option value="Bhutan">Bhutan</option>
+              <option value="Maldives">Maldives</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="5">
+            <label>Favorite IDE</label>
+          </td>
+          <td>
+            <input
+              type="checkbox"
+              name="favorite_ide"
+              id="vscode"
+              value="vscode"
+            />
+            <label for="vscode">VS Code</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              type="checkbox"
+              name="favorite_ide"
+              id="sublime"
+              value="sublime"
+            />
+            <label for="sublime">Sublime Text</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              type="checkbox"
+              name="favorite_ide"
+              id="eclipse"
+              value="eclipse"
+            />
+            <label for="eclipse">Eclipse</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              type="checkbox"
+              name="favorite_ide"
+              id="netbeans"
+              value="netbeans"
+            />
+            <label for="netbeans">Netbeans</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              type="checkbox"
+              name="favorite_ide"
+              id="intellij"
+              value="intellij"
+            />
+            <label for="intellij">IntelliJ</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="toeic">TOEIC Score</label>
+          </td>
+          <td>
+            <input type="range" name="toeic" id="toeic" max="990" step="5" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="message">Message</label>
+          </td>
+          <td>
+            <textarea name="message" id="message" rows="5"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <input type="submit" value="Register" />
+            <input type="reset" value="Again" />
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
