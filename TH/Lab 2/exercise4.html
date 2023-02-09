@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <style>
+      .col-3 {
+        width: 25%;
+        float: left;
+      }
+      .col-6 {
+        width: 50%;
+        float: left;
+      }
+      .row {
+        padding: 10px;
+      }
+      .row::after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      .header {
+        background-color: blueviolet;
+        padding: 10px;
+        color: white;
+      }
+      .menu ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+      .menu ul li {
+        background-color: #2cccff;
+        padding: 2px;
+        color: white;
+      }
+      .menu ul li:hover {
+        background-color: #188cb2;
+      }
+      .menu ul li:not(:last-child) {
+        margin-bottom: 2px;
+      }
+      .aside {
+        background-color: #2cccff;
+        padding: 10px;
+        color: white;
+      }
+      .footer {
+        background-color: #188cb2;
+        padding: 10px;
+        text-align: center;
+        color: white;
+      }
+      @media screen and (max-width: 768px) {
+				.col-3,
+				.col-6 {
+					width: 100%;
+				}
+			}
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Chania</h1>
+    </div>
+
+    <div class="row">
+      <div class="col-3 menu">
+        <ul>
+          <li>The Flight</li>
+          <li>The City</li>
+          <li>The Island</li>
+          <li>The Food</li>
+        </ul>
+      </div>
+
+      <div class="col-6">
+        <h1>The City</h1>
+        <p>
+          Chania is the capital of the Chania region on the island of Crete. The
+          city can be divided in two parts, the old town and the modern city.
+        </p>
+      </div>
+
+      <div class="col-3 right">
+        <div class="aside">
+          <h2>What?</h2>
+          <p>Chania is a city on the island of Crete.</p>
+          <h2>Where?</h2>
+          <p>Crete is a Greek island in the Mediterranean Sea.</p>
+          <h2>How?</h2>
+          <p>You can reach Chania airport from all over Europe.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>
+        Resize the browser window to see how the content respond to the
+        resizing.
+      </p>
+    </div>
+  </body>
+</html>
