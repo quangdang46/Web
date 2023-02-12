@@ -10,33 +10,124 @@
       integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
       crossorigin="anonymous"
     ></script>
+
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: #d9d7dd;
+      }
+      .clock {
+        border-radius: 100%;
+        background: #ffffff;
+        font-family: "Montserrat";
+        border: 5px solid white;
+        box-shadow: inset 2px 3px 8px 0 rgba(0, 0, 0, 0.1);
+        background: url("https://source.unsplash.com/random") no-repeat center
+          center fixed;
+      }
+
+      .wrap {
+        overflow: hidden;
+        position: relative;
+        width: 350px;
+        height: 350px;
+        border-radius: 100%;
+      }
+
+      .minute,
+      .hour {
+        position: absolute;
+        height: 100px;
+        width: 6px;
+        margin: auto;
+        top: -27%;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: black;
+        transform-origin: bottom center;
+        transform: rotate(0deg);
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+        z-index: 1;
+      }
+
+      .minute {
+        position: absolute;
+        height: 130px;
+        width: 4px;
+        top: -38%;
+        left: 0;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+        transform: rotate(90deg);
+      }
+
+      .second {
+        position: absolute;
+        height: 90px;
+        width: 2px;
+        margin: auto;
+        top: -26%;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        border-radius: 4px;
+        background: #ff4b3e;
+        transform-origin: bottom center;
+        transform: rotate(180deg);
+        z-index: 1;
+      }
+      .dot {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 12px;
+        height: 12px;
+        border-radius: 100px;
+        background: white;
+        border: 2px solid #1b1b1b;
+        border-radius: 100px;
+        margin: auto;
+        z-index: 1;
+      }
+      .time {
+        text-align: center;
+        margin-top: 10px;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
-    <div
-      id="table"
-      style="width: 400px; height: 400px; display: flex; flex-wrap: wrap"
-    ></div>
+    <div>
+      <div class="clock">
+        <div class="wrap">
+          <span class="hour"></span>
+          <span class="minute"></span>
+          <span class="second"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+      <div class="time"></div>
+    </div>
+
     <script>
-      function square(bg) {
-        return `<div style="width:50px;height:50px;display:inline-block;background-color:${bg}"></div>`;
-      }
-      for (let i = 0; i < 8; i++) {
-        for (let j = 0; j < 8; j++) {
-          if (i % 2 == 0) {
-            if (j % 2 == 0) {
-              $("#table").append(square("grey"));
-            } else {
-              $("#table").append(square("black"));
-            }
-          } else {
-            if (j % 2 == 0) {
-              $("#table").append(square("black"));
-            } else {
-              $("#table").append(square("grey"));
-            }
-          }
-        }
-      }
+      setInterval(() => {
+        let date = new Date();
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+        let second = date.getSeconds();
+        let hourDeg = ((hour * 30) % 360) + ((minute / 2) % 30);
+        let minuteDeg = ((minute * 6) % 360) + ((second / 10) % 6);
+        let secondDeg = (second * 6) % 360;
+        $(".hour").css("transform", `rotate(${hourDeg}deg)`);
+        $(".minute").css("transform", `rotate(${minuteDeg}deg)`);
+        $(".second").css("transform", `rotate(${secondDeg}deg)`);
+        $(".time").text(`${hour}:${minute}:${second}`);
+      }, 1000);
     </script>
   </body>
 </html>
