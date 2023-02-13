@@ -5,9 +5,151 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+      .app {
+        width: 1000px;
+        margin: 0 auto;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .m-0 {
+        margin: 0;
+      }
+      .p-0 {
+        padding: 0;
+      }
+      .row {
+        overflow: hidden;
+      }
+      .row::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+      .col-6 {
+        float: left;
+        width: 50%;
+      }
+      .col-4 {
+        float: left;
+        width: 33.33%;
+      }
+      .logo {
+        width: 300px;
+        height: 100px;
+        object-fit: cover;
+      }
+      .title {
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: bold;
+      }
+      .name {
+        text-align: center;
+        color: cornflowerblue;
+        font-weight: 600;
+        background-color: #cccc;
+      }
+      .border {
+        border: 1px solid black;
+      }
+      .place-image {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto;
+      }
+      .bg-gray {
+        background-color: #cccc;
+      }
+      .text-yellow {
+        color: yellow;
+      }
+      .text-green {
+        color: green;
+      }
+      .contact {
+        margin-top: 20px;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
-    
-
+    <div class="app">
+      <div class="row">
+        <img src="https://source.unsplash.com/random" alt="" class="logo" />
+      </div>
+      <p class="row title text-yellow">môt số địa điểm du lịch</p>
+      <div class="row">
+        <div class="col-6">
+          <p class="name m-0">Địa danh</p>
+          <ul class="list_item">
+            <li>Mũi né</li>
+            <li>Mũi né</li>
+            <li>Mũi né</li>
+            <li>Mũi né</li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <p class="name m-0">Địa danh</p>
+          <ul class="list_item">
+            <li>Mũi né</li>
+            <li>Mũi né</li>
+            <li>Mũi né</li>
+            <li>Mũi né</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <p class="title border m-0 bg-gray text-green">
+          Một số danh lam thắng cảnh
+        </p>
+        <div class="col-4">
+          <p class="name border m-0">Địa danh</p>
+          <div class="border">
+            <img
+              src="https://source.unsplash.com/random"
+              alt=""
+              class="place-image"
+            />
+          </div>
+        </div>
+        <div class="col-4">
+          <p class="name border m-0">Địa danh</p>
+          <div class="border">
+            <img
+              src="https://source.unsplash.com/random"
+              alt=""
+              class="place-image"
+            />
+          </div>
+        </div>
+        <div class="col-4">
+          <p class="name border m-0">Địa danh</p>
+          <div class="border">
+            <img
+              src="https://source.unsplash.com/random"
+              alt=""
+              class="place-image"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row contact">
+        <p class="m-0">Moi chi tiet xin lien he</p>
+        <p class="m-0">Van phong du lich Saigon gan nhat</p>
+        <p class="m-0">So dien thoai: 0123456789</p>
+      </div>
+    </div>
   </body>
 </html>
