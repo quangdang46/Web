@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.6.3.min.js"
+      integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <canvas id="samplecanvas"></canvas>
+    <script>
+      var w = 200,
+        h = 200;
+      var ctx = document.getElementById("samplecanvas").getContext("2d");
+      function DrawChessBoard(n) {
+        var scale = w / n;
+        for (var i = 0; i < n; i++) {
+          var c = i % 2;
+          for (var j = 0; j < n; j++) {
+            c = 1 - c;
+            ctx.fillStyle = c === 0 ? "black" : "grey";
+            ctx.fillRect(j * scale, i * scale, scale - 1, scale - 1);
+          }
+        }
+      }
+      DrawChessBoard(8);
+    </script>
+  </body>
+</html>
