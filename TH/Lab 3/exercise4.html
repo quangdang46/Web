@@ -1,42 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="UTF-8">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
     <title>Table</title>
-</head>
-<body>
-
-<style>
-    *{
+  </head>
+  <body>
+    <style>
+      * {
         box-sizing: border-box;
-    }
+      }
 
-    select{
+      select {
         float: left;
-    }
-    img{
+      }
+      img {
         float: left;
-    }
-</style>
+      }
+    </style>
+
+    <select id="imageList" name="imageList" size="10">
+      <option value="pic_001.jpg">pic_001.jpg</option>
+      <option value="pic_002.jpg">pic_002.jpg</option>
+      <option value="pic_003.jpg">pic_003.jpg</option>
+      <option value="pic_004.jpg">pic_004.jpg</option>
+      <option value="pic_005.jpg">pic_005.jpg</option>
+      <option value="pic_006.jpg">pic_006.jpg</option>
+      <option value="pic_007.jpg">pic_007.jpg</option>
+      <option value="pic_008.jpg">pic_008.jpg</option>
+      <option value="pic_009.jpg">pic_009.jpg</option>
+      <option value="pic_010.jpg">pic_010.jpg</option>
+    </select>
+    <img src="images/pic_001.jpg" />
+    <button type="button">Back</button>
+    <button type="button">Start slideshow</button>
+    <button type="button">Next</button>
+    <p>pic_001.jpg (1/10)</p>
 
 
-<select id="imageList" name="imageList" size="10">
-    <option value="pic_001.jpg">pic_001.jpg</option>
-    <option value="pic_002.jpg">pic_002.jpg</option>
-    <option value="pic_003.jpg">pic_003.jpg</option>
-    <option value="pic_004.jpg">pic_004.jpg</option>
-    <option value="pic_005.jpg">pic_005.jpg</option>
-    <option value="pic_006.jpg">pic_006.jpg</option>
-    <option value="pic_007.jpg">pic_007.jpg</option>
-    <option value="pic_008.jpg">pic_008.jpg</option>
-    <option value="pic_009.jpg">pic_009.jpg</option>
-    <option value="pic_010.jpg">pic_010.jpg</option>
-</select>
-<img src="images/pic_001.jpg">
-<button type="button" >Back</button>
-<button type="button" >Start slideshow</button>
-<button  type="button">Next</button>
-<p >pic_001.jpg (10/55)</p>
-</body>
+		<script>
+			let imageList = document.getElementById("imageList");
+			let image = document.querySelector("img");
+			let back = document.querySelector("button:nth-of-type(1)");
+			let start = document.querySelector("button:nth-of-type(2)");
+			let next = document.querySelector("button:nth-of-type(3)");
+			let p = document.querySelector("p");
+			let index = 0;
+			let interval;
+			let isSlideshow = false;
+
+			imageList.addEventListener("change", function() {
+				image.src = "images/" + imageList.value;
+				p.textContent = imageList.value + " (" + (index + 1) + "/10)";
+			});
+
+			back.addEventListener("click", function() {
+				if (index === 0) {
+					index = 9;
+				} else {
+					index--;
+				}
+				image.src = "images/" + imageList.options[index].value;
+				imageList.selectedIndex = index;
+				p.textContent = imageList.value + " (" + (index + 1) + "/10)";
+			});
+
+			next.addEventListener("click", function() {
+				if (index === 9) {
+					index = 0;
+				} else {
+					index++;
+				}
+				image.src = "images/" + imageList.options[index].value;
+				imageList.selectedIndex = index;
+				p.textContent = imageList.value + " (" + (index + 1) + "/10)";
+			});
+
+			start.addEventListener("click", function() {
+				if (isSlideshow) {
+					clearInterval(interval);
+					isSlideshow = false;
+					start.textContent = "Start slideshow";
+					back.disabled = false;
+					next.disabled = false;
+				} else {
+					interval = setInterval(function() {
+						if (index === 9) {
+							index = 0;
+						} else {
+							index++;
+						}
+						image.src = "images/" + imageList.options[index].value;
+						imageList.selectedIndex = index;
+						p.textContent = imageList.value + " (" + (index + 1) + "/10)";
+					}, 1000);
+					isSlideshow = true;
+					start.textContent = "Stop slideshow";
+					back.disabled = true;
+					next.disabled = true;
+				}
+			});
+		</script>
+  </body>
 </html>
