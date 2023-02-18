@@ -10,8 +10,104 @@
       integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
       crossorigin="anonymous"
     ></script>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .square {
+        width: 40px;
+        height: 40px;
+      }
+      .message {
+        margin-top: 10px;
+        font-size: 2rem;
+        color: green;
+        background-color: chartreuse;
+        border-radius: 4px;
+        padding: 4px;
+      }
+    </style>
   </head>
   <body>
-    
+    <div class="wrapper">
+      <div
+        class="table"
+        style="width: 400px; height: 400px; display: flex; flex-wrap: wrap"
+      ></div>
+      <div class="message"></div>
+    </div>
+    <script>
+      const colors = [
+        "red",
+        "green",
+        "blue",
+        "yellow",
+        "orange",
+        "purple",
+        "pink",
+        "brown",
+        "black",
+        "blueviolet",
+      ];
+      function showMessage(color) {
+        // remove event hover
+        $(".square").off("mouseover");
+        $(".square").off("mouseout");
+        $("body").css("background-color", color);
+        const message = $(".message");
+        message.text("Background color changed");
+        message.fadeIn();
+        setTimeout(() => {
+          message.fadeOut(() => {
+            message.css("display", "none");
+            $("body").css("background-color", "");
+            // add event hover
+            $(".square").on("mouseover", handleMouseOver);
+            $(".square").on("mouseout", handleMouseOut);
+          });
+        }, 3000);
+      }
+
+      function handleSquareClick() {
+        const color = $(this).css("background-color");
+        $("body").css("background-color", color);
+        showMessage(color);
+      }
+
+      function handleMouseOver() {
+        const color = $(this).css("background-color");
+        $("body").css("background-color", color);
+      }
+
+      function handleMouseOut() {
+        $("body").css("background-color", "");
+      }
+
+      function createSquare(color) {
+        const square = $("<div></div>");
+        square.addClass("square");
+        square.css("background-color", color);
+        square.on("click", handleSquareClick);
+        square.on("mouseover", handleMouseOver);
+        square.on("mouseout", handleMouseOut);
+        return square;
+      }
+
+      $(document).ready(function () {
+        $(".message").css("display", "none");
+        for (let i = 0; i < 100; i++) {
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          $(".table").append(createSquare(color));
+        }
+      });
+    </script>
   </body>
 </html>
