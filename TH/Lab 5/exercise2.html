@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.6.3.min.js"
+      integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      #puzzle-container {
+        width: 900px;
+        height: 900px;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .puzzle-piece {
+        width: 300px;
+        height: 300px;
+        background-size: 600px 600px;
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        cursor: pointer;
+      }
+      .puzzle-piece:nth-child(1) {
+        background-position: 0 0;
+      }
+      .puzzle-piece:nth-child(2) {
+        background-position: -200px 0;
+      }
+      .puzzle-piece:nth-child(3) {
+        background-position: -400px 0;
+      }
+      .puzzle-piece:nth-child(4) {
+        background-position: 0 -200px;
+      }
+      .puzzle-piece:nth-child(5) {
+        background-position: -200px -200px;
+      }
+      .puzzle-piece:nth-child(6) {
+        background-position: -400px -200px;
+      }
+      .puzzle-piece:nth-child(7) {
+        background-position: 0 -400px;
+      }
+      .puzzle-piece:nth-child(8) {
+        background-position: -200px -400px;
+      }
+      .puzzle-piece:nth-child(9) {
+        background-position: -400px -400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="puzzle-container"></div>
+    <div id="image-container"></div>
+    <script>
+      /*
+      Requirements:
+- The position of the puzzle pieces is chosen randomly when the page is loaded.
+Rotation angles (0, 90, 180, 270) of the puzzle pieces are also randomly 
+generated.
+- Users can click on the pieces to rotate them (0 à 90, 90 à 180,…).
+- You can only drag pieces into empty box, you can not drop pieces in the none 
+empty box or outside.
+- After the user drags the last piece of the puzzle, the web page will display a 
+greeting message if the user has correctly cropped the original photo
+      */
+      const puzzlePieces = [
+        "cntt_01.gif",
+        "cntt_02.gif",
+        "cntt_03.gif",
+        "cntt_04.gif",
+        "cntt_05.gif",
+        "cntt_06.gif",
+        "cntt_07.gif",
+        "cntt_08.gif",
+        "cntt_09.gif",
+        // "cntt_10.gif",
+      ];
+      const puzzleContainer = $("#puzzle-container");
+      const puzzlePiecesContainer = [];
+      const emptyBox = {
+        top: 0,
+        left: 0,
+      };
+
+      function init() {
+        puzzlePieces.forEach((puzzlePiece, index) => {
+          const puzzlePieceContainer = $("<div></div>");
+          puzzlePieceContainer.addClass("puzzle-piece");
+          puzzlePieceContainer.css(
+            "background-image",
+            `url("images/${puzzlePiece}")`
+          );
+          puzzlePieceContainer.css("top", `${Math.floor(index / 3) * 200}px`);
+          puzzlePieceContainer.css("left", `${(index % 3) * 200}px`);
+          puzzlePieceContainer.css("transform", `rotate(0deg)`);
+          puzzlePieceContainer.attr("data-rotate", 0);
+          puzzlePieceContainer.attr("data-top", Math.floor(index / 3) * 200);
+          puzzlePieceContainer.attr("data-left", (index % 3) * 200);
+          puzzlePieceContainer.attr("data-index", index);
+          puzzlePieceContainer.on("click", rotatePuzzlePiece);
+          puzzlePieceContainer.on("dragstart", dragPuzzlePiece);
+          puzzlePieceContainer.on("dragover", dragOverPuzzlePiece);
+          puzzlePieceContainer.on("drop", dropPuzzlePiece);
+          puzzlePieceContainer.attr("draggable", true);
+          puzzlePiecesContainer.push(puzzlePieceContainer);
+          puzzleContainer.append(puzzlePieceContainer);
+        });
+        shufflePuzzlePieces();
+      }
+
+      function rotatePuzzlePiece() {
+        const rotate = parseInt($(this).attr("data-rotate"));
+        $(this).attr("data-rotate", rotate + 90);
+        $(this).css("transform", `rotate(${rotate + 90}deg)`);
+      }
+
+      function dragPuzzlePiece(event) {
+        event.originalEvent.dataTransfer.setData(
+          "text/plain",
+          $(this).attr("data-index")
+        );
+      }
+
+      function dragOverPuzzlePiece(event) {
+        event.preventDefault();
+      }
+
+      function dropPuzzlePiece(event) {
+        event.preventDefault();
+        const index = event.originalEvent.dataTransfer.getData("text/plain");
+        const puzzlePiece = puzzlePiecesContainer[index];
+        const top = parseInt(puzzlePiece.attr("data-top"));
+        const left = parseInt(puzzlePiece.attr("data-left"));
+        if (emptyBox.top === top && emptyBox.left === left) {
+          return;
+        }
+        puzzlePiece.css("top", `${emptyBox.top}px`);
+        puzzlePiece.css("left", `${emptyBox.left}px`);
+        puzzlePiece.attr("data-top", emptyBox.top);
+        puzzlePiece.attr("data-left", emptyBox.left);
+        emptyBox.top = top;
+        emptyBox.left = left;
+        checkWin();
+      }
+
+      function shufflePuzzlePieces() {
+        puzzlePiecesContainer.forEach((puzzlePiece) => {
+          const top = Math.floor(Math.random() * 3) * 200;
+          const left = Math.floor(Math.random() * 3) * 200;
+          const rotate = Math.floor(Math.random() * 4) * 90;
+          puzzlePiece.css("top", `${top}px`);
+          puzzlePiece.css("left", `${left}px`);
+          puzzlePiece.css("transform", `rotate(${rotate}deg)`);
+          puzzlePiece.attr("data-top", top);
+          puzzlePiece.attr("data-left", left);
+          puzzlePiece.attr("data-rotate", rotate);
+        });
+      }
+
+      function checkWin() {
+        let isWin = true;
+        puzzlePiecesContainer.forEach((puzzlePiece) => {
+          const top = parseInt(puzzlePiece.attr("data-top"));
+          const left = parseInt(puzzlePiece.attr("data-left"));
+          const index = parseInt(puzzlePiece.attr("data-index"));
+          if (top !== Math.floor(index / 3) * 200) {
+            isWin = false;
+          }
+          if (left !== (index % 3) * 200) {
+            isWin = false;
+          }
+        });
+        if (isWin) {
+          alert("You win!");
+        }
+      }
+
+      init();
+      // $(document).ready(function () {
+      //   puzzlePieces.forEach((puzzlePiece) => {
+      //     const image = $("<img />");
+      //     image.attr("src", `images/${puzzlePiece}`);
+      //     $("#image-container").append(image);
+      //   });
+      // });
+    </script>
+  </body>
+</html>
